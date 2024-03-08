@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>博客</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .sidebar h3 {
+            margin-top: 0;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header button {
+            padding: 10px 20px;
+            background-color: #4caf50;
+            border: none;
+            color: #ffffff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .header button:hover {
+            background-color: #45a049;
+        }
+
+        .username {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .post {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .post h2 {
+            margin-top: 0;
+        }
+
+        .post p {
+            margin-bottom: 0;
+        }
+
+        .post .actions {
+            text-align: right;
+        }
+
+        .post .actions button {
+            padding: 5px 10px;
+            background-color: #4caf50;
+            border: none;
+            color: #ffffff;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .post .actions button:hover {
+            background-color: #45a049;
+        }
+
+        .comment {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .comment p {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <span class="username" id="username"></span>
+    <button onclick="location.href='/login'">登录</button>
+    <button onclick="location.href='/signup'">注册</button>
+    <button onclick="location.href='/create-article'">发布文章</button>
+</div>
+
+<div class="container">
+    <div class="sidebar">
+        <h3>其他内容</h3>
+        <ul>
+            <li>新闻</li>
+            <li>账户信息</li>
+            <li>更多...</li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <h1>博客</h1>
+
+        <div class="post">
+            <h2>文章标题</h2>
+            <p>文章内容...</p>
+            <div class="actions">
+                <button onclick="deletePost(postId)">删除</button>
+                <button onclick="likePost(postId)">点赞</button>
+            </div>
+
+            <div class="comment">
+                <p>评论内容...</p>
+            </div>
+
+            <div class="comment">
+                <p>评论内容...</p>
+            </div>
+
+            <!-- 更多评论... -->
+        </div>
+
+        <div class="post">
+            <h2>文章标题</h2>
+            <p>文章内容...</p>
+            <div class="actions">
+                <button onclick="deletePost(postId)">删除</button>
+                <button onclick="likePost(postId)">点赞</button>
+            </div>
+
+            <div class="comment">
+                <p>评论内容...</p>
+            </div>
+
+            <!-- 更多评论... -->
+        </div>
+
+        <!-- 更多文章... -->
+    </div>
+</div>
+
+<script>
+    // 模拟登录成功，并显示用户名
+    const usernameElement = document.getElementById('username');
+    const loggedInUsername = 'JohnDoe';usernameElement.textContent = loggedInUsername;
+</script>
+</body>
+</html>
