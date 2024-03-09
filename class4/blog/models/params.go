@@ -8,15 +8,15 @@ const (
 
 // ParamSignUp  注册参数
 type ParamSignUp struct {
-	Username   string `json:"username" binding:"required"`
-	Password   string `json:"password" binding:"required"`
-	RePassword string `json:"re_password" binding:"required,eqfield=Password"`
+	Username   string `json:"username" binding:"required" example:"rosyrain" `
+	Password   string `json:"password" binding:"required" example:"abc123456"`
+	RePassword string `json:"re_password" binding:"required,eqfield=Password" example:"abc123456"`
 }
 
 // ParamLogin  登录请求参数
 type ParamLogin struct {
-	Username string `json:"username" binding:"required"`
-	Password string `json:"password" binding:"required"`
+	Username string `json:"username" binding:"required" example:"rosyrain"`
+	Password string `json:"password" binding:"required" example:"abc123456"`
 }
 
 // VoteData  投票数据
@@ -28,10 +28,10 @@ type ParamVoteData struct {
 
 // ParamPostList  获取帖子列表query string 参数
 type ParamPostList struct {
-	CommunityID int64  `json:"community_id" form:"community_id" example:"1"` //	可以为空
-	Page        int64  `json:"page" form:"page" example:"1"`                 // 页码
-	Size        int64  `json:"size" form:"size" example:"10"`                // 每页数量
-	Order       string `json:"order" form:"order" example:"score"`           // 排序依据
+	//CommunityID int64  `json:"community_id" form:"community_id" example:"1"` //	可以为空
+	Page  int64  `json:"page" form:"page" example:"1"`       // 页码
+	Size  int64  `json:"size" form:"size" example:"10"`      // 每页数量
+	Order string `json:"order" form:"order" example:"score"` // 排序依据
 }
 
 // ParamCommunityPostList  获取社区列表query string 参数

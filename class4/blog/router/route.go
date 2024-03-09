@@ -27,14 +27,28 @@ func Setup(mode string) *gin.Engine {
 
 	v1 := r.Group("/api/v1")
 
-	//注册
-	v1.POST("/signup", controller.SignUpHandler)
-	//登录
+	//不需要JWT认证的页面
+	{
+		//注册
+		v1.POST("/signup", controller.SignUpHandler)
+		//登录
+		v1.POST("/login", controller.LoginHandler)
+		//依据时间或分数获取帖子列表
+		v1.GET("/posts", controller.GetPostListHandler)
 
-	v1.POST("/login", controller.LoginHandler)
+	}
 
-	//v1.Use(middlewares.JWTAuthMiddleware()) //应用JWT认证中间件
-	//
+	v1.Use(middlewares.JWTAuthMiddleware()) //应用JWT认证中间件
+	{
+		//创建帖子
+		v1.POST("/post", controller.CreatePostHandler)
+		//删除帖子
+		v1.POST("/deleteP/:id", controller.DeletePostHandler)
+		//投票
+		v1.POST("/vote", controller.PostVoteHandler)
+
+	}
+
 	//{
 	//	v1.GET("/community", controller.CommunityHandler)
 	//	v1.GET("/community/:id", controller.CommunityDetailHandler)

@@ -21,6 +21,7 @@ func SignUpHandler(c *gin.Context) {
 		errs, ok := err.(validator.ValidationErrors)
 		if !ok {
 			ResponseError(c, CodeInvalidParam)
+			return
 		}
 		ResponseErrorWithMsg(c, CodeInvalidParam, removeTopStruct(errs.Translate(trans)))
 
@@ -34,13 +35,14 @@ func SignUpHandler(c *gin.Context) {
 		//
 		if errors.Is(err, mysql.ErrorUserExist) {
 			ResponseError(c, CodeUserExist)
+			return
 		}
 		ResponseError(c, CodeServerBusy)
 		return
 	}
 
 	//3.返回相应
-	return
+	ResponseSuccess(c, nil)
 
 }
 
@@ -67,9 +69,16 @@ func LoginHandler(c *gin.Context) {
 		zap.L().Error("logic.Login failed", zap.String("username", p.Username), zap.Error(err))
 		if errors.Is(err, mysql.ErrorUserNotExist) {
 			ResponseError(c, CodeUserNotExist)
+			return
 		}
 		ResponseError(c, CodeInvalidParam)
 		return
 	}
 
+	//3.返回参数
+	ResponseSuccess(c, gin.H{
+		"user_id":   user.UserID,
+		"user_name": user.Username,
+		"token":     user.Token,
+	})
 }
