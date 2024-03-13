@@ -12,13 +12,14 @@ import (
 )
 
 // SignUpHandler 创建用户
+
 // @Summary 创建用户
 // @Description 创建新用户接口
 // @Tags 用户相关接口
 // @Accept application/json
 // @Produce application/json
 // @Param object body models.ParamSignUp true "用户注册参数"
-// @Success 200 {object} _ResponsePostList
+// @Success 1000 {object} _ResponseSuccess
 // @Router /signup [post]
 func SignUpHandler(c *gin.Context) {
 	//1.获取参数并进行校验
@@ -56,15 +57,13 @@ func SignUpHandler(c *gin.Context) {
 }
 
 // LoginHandler 实现登录的处理函数
-// LoginHandler 实现登录的处理函数
 // @Summary 用户登录
 // @Description 用户登录接口
 // @Tags 用户相关接口
 // @Accept application/json
 // @Produce application/json
 // @Param object body models.ParamLogin true "用户登录参数"
-// @Success 200 {object} _ResponsePostList
-// @Router /login [post]
+// @Success 1000 {object} _ResponseSuccess
 func LoginHandler(c *gin.Context) {
 	//1.获取参数并进行校验
 	p := new(models.ParamLogin)

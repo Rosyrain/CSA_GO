@@ -17,7 +17,7 @@ import (
 // @Param Authorization header string false "Bearer 用户令牌"
 // @Param post body models.Post true "帖子信息"
 // @Security ApiKeyAuth
-// @Success 200 {object} _ResponsePostList
+// @Success 1000 {object} _ResponseSuccess
 // @Router /posts [post]
 func CreatePostHandler(c *gin.Context) {
 	//1.参数验证
@@ -62,7 +62,7 @@ func CreatePostHandler(c *gin.Context) {
 // @Param Authorization header string false "Bearer 用户令牌"
 // @Param id path int true "帖子ID"
 // @Security ApiKeyAuth
-// @Success 200 {object} _ResponsePostList
+// @Success 1000 {object} _ResponseSuccess
 // @Router /posts/{id} [delete]
 func DeletePostHandler(c *gin.Context) {
 	//1.参数校验

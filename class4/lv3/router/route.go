@@ -2,14 +2,10 @@ package router
 
 import (
 	"blog/controller"
-	_ "blog/docs" // 千万不要忘了导入把你上一步生成的docs
 	"blog/logger"
 	"blog/middlewares"
 	"net/http"
 	"time"
-
-	swaggerFiles "github.com/swaggo/files"
-	gs "github.com/swaggo/gin-swagger"
 
 	"github.com/gin-gonic/gin"
 
@@ -25,7 +21,7 @@ func Setup(mode string) *gin.Engine {
 	r := gin.New()
 	r.Use(logger.GinLogger(), logger.GinRecovery(true), middlewares.RateLimitMiddleware(2*time.Second, 1))
 
-	r.GET("/swagger/*any", gs.WrapHandler(swaggerFiles.Handler))
+	//r.GET("/swagger/*any", gs.WrapHandler(swaggerFiles.Handler))
 
 	//注册业务路由
 

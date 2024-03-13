@@ -23,7 +23,7 @@ import (
 // @Produce application/json
 // @Param object body models.ParamVoteData true "用户投票参数"
 // @Security ApiKeyAuth
-// @Success 200 {object} _ResponsePostList
+// @Success 1000 {object} _ResponseSuccess
 // @Router /vote [post]
 func PostVoteHandler(c *gin.Context) {
 	//1.参数校验

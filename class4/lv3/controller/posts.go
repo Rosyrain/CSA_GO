@@ -16,7 +16,8 @@ import (
 // @Param Authorization header string false "Bearer 用户令牌"
 // @Param object body models.ParamPostList true "查询参数"
 // @Security ApiKeyAuth
-// @Success 200 {object} _ResponsePostList
+// @Success 1000 {object} _ResponseSuccess
+
 // @Router /posts [post]
 func GetPostListHandler(c *gin.Context) {
 	//初始胡结构体参数
