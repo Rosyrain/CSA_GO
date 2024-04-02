@@ -2,12 +2,11 @@ syntax = "proto3";
 
 package pb;
 
-option go_package = "server/pb";
+option go_package = "client/proto";
 
 import "google/protobuf/empty.proto";
-import "google/protobuf/field_mask.proto";
 
-service UserService{
+service User{
   rpc GetUserById(IdRequest) returns (UserInfoResponse); //通过id查询用户
   rpc CreateUser(CreateUserInfo) returns (UserInfoResponse); // 添加用户
   rpc UpdateUser(UpdateUserInfo) returns (google.protobuf.Empty); // 更新用户
@@ -47,14 +46,3 @@ message UserInfoResponse {
   uint64 birthDay = 5;
   string gender = 6;
 }
-
-message UpdateUserRequest {
-  // 操作人
-  string op = 1;
-  // 要更新的书籍信息
-  UpdateUserInfo user = 2;
-
-  //要更新的字段
-  google.protobuf.FieldMask update_mask = 3;
-}
-
