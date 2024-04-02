@@ -1,0 +1,377 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "简单的博客系统",
+        "title": "CSA_blog",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "rosyrain",
+            "url": "http://blog.rosyrain.cn/",
+            "email": "jx178861659@163.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "127.0.0.1:8080",
+    "basePath": "/",
+    "paths": {
+        "/posts": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "获取帖子列表接口，根据参数查询帖子列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "帖子相关接口"
+                ],
+                "summary": "获取帖子列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 用户令牌",
+                        "name": "Authorization",
+                        "in": "header"
+                    },
+                    {
+                        "description": "查询参数",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ParamPostList"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller._ResponsePostList"
+                        }
+                    }
+                }
+            }
+        },
+        "/posts/{id}": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "删除指定ID的帖子",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "帖子相关接口"
+                ],
+                "summary": "删除帖子",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 用户令牌",
+                        "name": "Authorization",
+                        "in": "header"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "帖子ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller._ResponsePostList"
+                        }
+                    }
+                }
+            }
+        },
+        "/signup": {
+            "post": {
+                "description": "创建新用户接口",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户相关接口"
+                ],
+                "summary": "创建用户",
+                "parameters": [
+                    {
+                        "description": "用户注册参数",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ParamSignUp"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller._ResponsePostList"
+                        }
+                    }
+                }
+            }
+        },
+        "/vote": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "用户投票接口",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户相关接口"
+                ],
+                "summary": "用户投票",
+                "parameters": [
+                    {
+                        "description": "用户投票参数",
+                        "name": "object",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ParamVoteData"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller._ResponsePostList"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "controller.ResCode": {
+            "type": "integer",
+            "enum": [
+                1000,
+                1001,
+                1002,
+                1003,
+                1004,
+                1005,
+                1006,
+                1007
+            ],
+            "x-enum-varnames": [
+                "CodeSuccess",
+                "CodeInvalidParam",
+                "CodeUserExist",
+                "CodeUserNotExist",
+                "CodeInvalidPassword",
+                "CodeServerBusy",
+                "CodeInvalidToken",
+                "CodeNeedLogin"
+            ]
+        },
+        "controller._ResponsePostList": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "业务相应状态码",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/controller.ResCode"
+                        }
+                    ]
+                },
+                "data": {
+                    "description": "数据",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.ApiPostDetail"
+                    }
+                },
+                "message": {
+                    "description": "提示信息",
+                    "type": "string"
+                }
+            }
+        },
+        "models.ApiPostDetail": {
+            "type": "object",
+            "required": [
+                "content",
+                "title"
+            ],
+            "properties": {
+                "author_id": {
+                    "type": "string",
+                    "example": ""
+                },
+                "author_name": {
+                    "type": "string",
+                    "example": "rosyrain"
+                },
+                "content": {
+                    "type": "string",
+                    "example": ""
+                },
+                "create_time": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "example": ""
+                },
+                "title": {
+                    "type": "string",
+                    "example": ""
+                },
+                "vote_number": {
+                    "type": "integer",
+                    "example": 10
+                }
+            }
+        },
+        "models.ParamLogin": {
+            "type": "object",
+            "required": [
+                "password",
+                "username"
+            ],
+            "properties": {
+                "password": {
+                    "type": "string",
+                    "example": "abc123456"
+                },
+                "username": {
+                    "type": "string",
+                    "example": "rosyrain"
+                }
+            }
+        },
+        "models.ParamPostList": {
+            "type": "object",
+            "properties": {
+                "order": {
+                    "description": "排序依据",
+                    "type": "string",
+                    "example": "score"
+                },
+                "page": {
+                    "description": "CommunityID int64  `json:\"community_id\" form:\"community_id\" example:\"1\"` //\t可以为空",
+                    "type": "integer",
+                    "example": 1
+                },
+                "size": {
+                    "description": "每页数量",
+                    "type": "integer",
+                    "example": 10
+                }
+            }
+        },
+        "models.ParamSignUp": {
+            "type": "object",
+            "required": [
+                "password",
+                "re_password",
+                "username"
+            ],
+            "properties": {
+                "password": {
+                    "type": "string",
+                    "example": "abc123456"
+                },
+                "re_password": {
+                    "type": "string",
+                    "example": "abc123456"
+                },
+                "username": {
+                    "type": "string",
+                    "example": "rosyrain"
+                }
+            }
+        },
+        "models.ParamVoteData": {
+            "type": "object",
+            "required": [
+                "post_id"
+            ],
+            "properties": {
+                "direction": {
+                    "description": "赞成票1，反对票-1，取消图片（0）",
+                    "type": "string",
+                    "enum": [
+                        1,
+                        0,
+                        -1
+                    ],
+                    "example": "0"
+                },
+                "post_id": {
+                    "description": "userID 从请求中获取当前的用户",
+                    "type": "string"
+                }
+            }
+        },
+        "models.Post": {
+            "type": "object",
+            "required": [
+                "content",
+                "title"
+            ],
+            "properties": {
+                "author_id": {
+                    "type": "string",
+                    "example": ""
+                },
+                "content": {
+                    "type": "string",
+                    "example": ""
+                },
+                "create_time": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "example": ""
+                },
+                "title": {
+                    "type": "string",
+                    "example": ""
+                }
+            }
+        }
+    }
+}
